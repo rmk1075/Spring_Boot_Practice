@@ -33,3 +33,17 @@
     - static/assets/*: bootstrap assets
     
     - static/css/blog/blog.css
+   
+2021.03.05
+
+1. sign-in 페이지
+
+   - LoginController.getSignIn(): "/signin" get request 시에 sign-in 페이지 출력
+
+   - templates/login/sign-in.html
+   
+   - sign 로직
+     
+      - blog sing up/in -> "/signin" get request
+   
+      - signin 페이지 signin 클릭 -> findByUserId()로 user 정보 조회 후 비교

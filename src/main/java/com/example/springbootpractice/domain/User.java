@@ -15,11 +15,20 @@ public class User {
     private Long id;
     private String name;
     private String email;
+    private String userId;
+    private String password;
 
     protected User() {}
 
     public User(String name, String email) {
         this.name = name;
         this.email = email;
+    }
+
+    public User(String name, String email, String userId, String password) {
+        this.name = name;
+        this.email = email;
+        this.userId = userId;
+        this.password = password;
     }
 }
