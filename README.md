@@ -23,3 +23,13 @@
    - UserRepository: CrudRepository를 상속받아서 자동으로 CRUD 기능이 사용가능하다.
 
    - gradle dependencies: jpa, mysql-connector
+    
+3. '/blog' 접근 시 blog/index.html 페이지 출력
+
+    - BlogController.getBlog(): "/blog" get request 시에 작동하는 메서
+    
+    - templates/blog/index.html: blog 페이지
+    
+    - static/assets/*: bootstrap assets
+    
+    - static/css/blog/blog.css
