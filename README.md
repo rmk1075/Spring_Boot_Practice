@@ -47,3 +47,27 @@
       - blog sing up/in -> "/signin" get request
    
       - signin 페이지 signin 클릭 -> findByUserId()로 user 정보 조회 후 비교
+    
+2. sign-up 페이지
+
+    - LoginController.getSignUp(), postSignUp()
+    
+    - LoginService, ServiceImpl. createUserInfo()
+    
+    - @Autowired를 통해서 DI를 해주지 않으면 Null Pointer Exception 발생한다.ㅁ
+    
+3. TODO
+   
+    - login 기능 관련하여 프로젝트 정리
+      
+        - UserController / LoginController
+    
+        - 접근 url 관련 정리 - root, blog, login 
+    
+    - login 기능 로직 세부 구현
+    
+        - 중복되는 ID 및 email 존재 여부 확인
+    
+        - sign up / sign in 실패 시 로직 (알림창)
+    
+        - login 이후 세션 관리
