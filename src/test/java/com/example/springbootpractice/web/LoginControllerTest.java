@@ -10,4 +10,9 @@ class LoginControllerTest {
     void getSignIn() {
         assertEquals(new LoginController().getSignIn(), "login/sign-in");
     }
+
+    @Test
+    void postSignIn() {
+        assertEquals("login/sign-in", new LoginController().postSignIn("test", "test"));
+    }
 }

@@ -20,11 +20,6 @@ public class User {
 
     protected User() {}
 
-    public User(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
-
     public User(String name, String email, String userId, String password) {
         this.name = name;
         this.email = email;

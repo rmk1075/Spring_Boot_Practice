@@ -18,8 +18,8 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public @ResponseBody String addUser(@RequestParam String name, @RequestParam String email) {
-        User user = new User(name, email);
+    public @ResponseBody String addUser(@RequestParam String name, @RequestParam String email, @RequestParam String id, @RequestParam String password) {
+        User user = new User(name, email, id, password);
         userRepository.save(user);
         return String.format("user %s (email: %s) is saved", name, email);
     }
