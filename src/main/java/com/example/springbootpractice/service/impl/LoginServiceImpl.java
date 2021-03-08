@@ -8,6 +8,8 @@ import com.example.springbootpractice.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class LoginServiceImpl implements LoginService {
     @Autowired
@@ -32,10 +34,11 @@ public class LoginServiceImpl implements LoginService {
      * @return
      */
     @Override
-    public boolean createUserInfo(UserDto userDto) {
+    public boolean addUser(UserDto userDto) {
         if(userRepository.countByUserIdOrEmail(userDto.getName(), userDto.getEmail()) != 0)
             return false;
-        userRepository.save(new User(userDto.getName(), userDto.getEmail(), userDto.getUserId(), userDto.getPassword()));
+
+        userRepository.save(new User(userDto.getName(), userDto.getEmail(), userDto.getUserId(), userDto.getPassword(), userDto.getCrtnDate(), userDto.getChgDate()));
         return true;
     }
 }

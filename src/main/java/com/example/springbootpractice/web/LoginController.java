@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @Controller
 public class LoginController {
     @Autowired
@@ -37,15 +39,14 @@ public class LoginController {
      * @return
      */
     @PostMapping("/signin")
-    public String postSignIn(@RequestParam String id, @RequestParam String password, Model model) {
+    public @ResponseBody UserDto postSignIn(@RequestParam String id, @RequestParam String password, Model model) {
         UserDto userDto = loginService.getUserInfo(id);
         if(userDto == null || !userDto.getPassword().equals(password)) {
-            model.addAttribute("user", null);
-            return "login/sign-in";
+            return null;
         }
 
         model.addAttribute("user", userDto);
-        return "blog/index";
+        return userDto;
     }
 
     /**
@@ -59,10 +60,10 @@ public class LoginController {
      * @return
      */
     @PostMapping("/signup")
-    public String postSignUp(@RequestParam String name, @RequestParam String email, @RequestParam String id, @RequestParam String password) {
-        if(loginService.createUserInfo(new UserDto(name, email, id, password)))
-            return "blog/index";
+    public @ResponseBody UserDto postSignUp(@RequestParam String name, @RequestParam String email, @RequestParam String id, @RequestParam String password) {
+        if(loginService.addUser(new UserDto(name, email, id, password, new Date(), new Date())))
+            return loginService.getUserInfo(id);
         else
-            return "login/sign-up";
+            return null;
     }
 }
