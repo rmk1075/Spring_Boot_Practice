@@ -13,6 +13,6 @@ class LoginControllerTest {
 
     @Test
     void postSignIn() {
-        assertEquals("login/sign-in", new LoginController().postSignIn("test", "test"));
+
     }
 }

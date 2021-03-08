@@ -4,5 +4,5 @@ import com.example.springbootpractice.dto.UserDto;
 
 public interface LoginService {
     public UserDto getUserInfo(String userId);
-    public void createUserInfo(UserDto userDto);
+    public boolean createUserInfo(UserDto userDto);
 }
