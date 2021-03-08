@@ -15,9 +15,13 @@ public class BlogController {
     PostService postService;
 
     @GetMapping({"/", "/blog"})
-    public @ResponseBody List<PostDto> getBlog() {
-        return postService.getAllPost();
+    public String getBlog() {
+        return "blog/index";
     }
+//    public @ResponseBody List<PostDto> getBlog() {
+//        return postService.getAllPost();
+//    }
+
 
     @GetMapping("/post")
     public String getPost() {

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 @Controller
@@ -25,9 +27,12 @@ public class LoginController {
     }
 
     @GetMapping("/logout")
-    public String getLogout(Model model) {
+    public String getLogout(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.removeAttribute("user");
+
         model.addAttribute("user", null);
-        return "blog/index";
+        return "redirect:/";
     }
 
     /**
@@ -39,14 +44,18 @@ public class LoginController {
      * @return
      */
     @PostMapping("/signin")
-    public @ResponseBody UserDto postSignIn(@RequestParam String id, @RequestParam String password, Model model) {
+    public String postSignIn(@RequestParam String id, @RequestParam String password, Model model, HttpServletRequest request) {
         UserDto userDto = loginService.getUserInfo(id);
         if(userDto == null || !userDto.getPassword().equals(password)) {
-            return null;
+            return "login/sign-in";
         }
 
+        HttpSession session = request.getSession();
+        session.setAttribute("user", userDto);
+        System.out.println(session.getAttribute("user"));
+
         model.addAttribute("user", userDto);
-        return userDto;
+        return "redirect:/";
     }
 
     /**
