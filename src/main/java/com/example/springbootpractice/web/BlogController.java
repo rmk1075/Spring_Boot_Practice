@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
-import java.util.List;
 
 @Controller
 public class BlogController {
@@ -25,10 +26,11 @@ public class BlogController {
     }
 
     @PostMapping("/addPost")
-    public @ResponseBody boolean addPost(@RequestParam String title, @RequestParam String contents) {
-        if(postService.addPost(new PostDto(title, 1L, contents, new Date(), new Date())))
-            return true;
+    public String addPost(@RequestParam String title, @RequestParam String contents, HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+        if(postService.addPost(new PostDto(title, (Long)session.getAttribute("id"), contents, new Date(), new Date())))
+            return "redirect:/";
         else
-            return false;
+            throw new Exception();
     }
 }

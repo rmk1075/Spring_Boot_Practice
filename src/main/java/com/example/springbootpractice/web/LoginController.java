@@ -29,6 +29,7 @@ public class LoginController {
     @GetMapping("/logout")
     public String getLogout(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
+        session.removeAttribute("id");
         session.removeAttribute("userId");
         session.removeAttribute("userName");
         session.removeAttribute("userEmail");
@@ -52,12 +53,11 @@ public class LoginController {
         }
 
         HttpSession session = request.getSession();
+        session.setAttribute("id", userDto.getId());
         session.setAttribute("userId", userDto.getUserId());
         session.setAttribute("userName", userDto.getName());
         session.setAttribute("userEmail", userDto.getEmail());
 
-        // TODO:
-        System.out.println(session.getAttribute("userId"));
         return "redirect:/";
     }
 
