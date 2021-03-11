@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Getter
 public class PostDto {
+    private Long id;
     private String title;
     private Long authorId;
     private String contents;
@@ -14,6 +15,7 @@ public class PostDto {
     private Date chgDate;
 
     public PostDto(Post entity) {
+        this.id = entity.getId();
         this.title = entity.getTitle();
         this.authorId = entity.getAuthorId();
         this.contents = entity.getContents();

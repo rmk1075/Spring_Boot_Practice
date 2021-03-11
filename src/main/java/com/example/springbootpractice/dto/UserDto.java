@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Getter
 public class UserDto {
+    private Long id;
     private String name;
     private String email;
     private String userId;
@@ -15,6 +16,7 @@ public class UserDto {
     private Date chgDate;
 
     public UserDto(User entity) {
+        this.id = entity.getId();
         this.name = entity.getName();
         this.email = entity.getEmail();
         this.userId = entity.getUserId();
