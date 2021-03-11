@@ -50,17 +50,17 @@
         <a class="link-secondary" href="#" aria-label="Search">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
         </a>
-<!--        <div id="loginjs">-->
-<!--          <a class="btn btn-sm btn-outline-secondary" href="/signin">Sign up/in js</a>-->
-<!--        </div>-->
-<!--        <div id="logoutjs">-->
-<!--          <a class="btn btn-sm btn-outline-secondary" href="/logout">Logout js</a>-->
-<!--        </div>-->
-        <div th:if="${session.user} == null" id="login">
+        <div th:if="${session.userId} == null" id="login">
           <a class="btn btn-sm btn-outline-secondary" href="/signin">Sign up/in</a>
         </div>
-        <div th:if="${session.user} != null" id="logout">
-          <a class="btn btn-sm btn-outline-secondary" href="/logout">Logout</a>
+        <div th:if="${session.userId} != null" id="logout">
+          <div>
+            <p th:text="${session['userId']}"></p>
+            <p th:text="${session['userName']}"></p>
+          </div>
+          <div>
+            <a class="btn btn-sm btn-outline-secondary" href="/logout">Logout</a>
+          </div>
         </div>
       </div>
     </div>
@@ -245,32 +245,4 @@
 
 
 </body>
-<!-- handle session by javascript -->
-<script>
-  function login_check(){
-    // var user = sessionStorage.getItem("user");
-    var user = ${session['userId']};
-    alert(user);
-
-    for(var i = 0; i < sessionStorage.length; i++) {
-      var index = sessionStorage.key(i);
-      alert('index: ' + index);
-      alert(index + sessionStorage.getItem(index));
-    }
-
-    var logout = document.getElementById("logoutjs");
-    var login = document.getElementById("loginjs");
-
-    if(user){
-      logout.style.display="inline";
-      login.style.display="none";
-    }
-    else{
-      logout.style.display="none";
-      login.style.display="inline";
-    }
-  }
-
-  // login_check();
-</script>
 </html>

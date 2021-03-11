@@ -29,9 +29,10 @@ public class LoginController {
     @GetMapping("/logout")
     public String getLogout(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.removeAttribute("user");
+        session.removeAttribute("userId");
+        session.removeAttribute("userName");
+        session.removeAttribute("userEmail");
 
-        model.addAttribute("user", null);
         return "redirect:/";
     }
 
@@ -44,17 +45,19 @@ public class LoginController {
      * @return
      */
     @PostMapping("/signin")
-    public String postSignIn(@RequestParam String id, @RequestParam String password, Model model, HttpServletRequest request) {
+    public String postSignIn(@RequestParam String id, @RequestParam String password, HttpServletRequest request) {
         UserDto userDto = loginService.getUserInfo(id);
         if(userDto == null || !userDto.getPassword().equals(password)) {
             return "login/sign-in";
         }
 
         HttpSession session = request.getSession();
-        session.setAttribute("user", userDto);
-        System.out.println(session.getAttribute("user"));
+        session.setAttribute("userId", userDto.getUserId());
+        session.setAttribute("userName", userDto.getName());
+        session.setAttribute("userEmail", userDto.getEmail());
 
-        model.addAttribute("user", userDto);
+        // TODO:
+        System.out.println(session.getAttribute("userId"));
         return "redirect:/";
     }
 
@@ -69,10 +72,10 @@ public class LoginController {
      * @return
      */
     @PostMapping("/signup")
-    public @ResponseBody UserDto postSignUp(@RequestParam String name, @RequestParam String email, @RequestParam String id, @RequestParam String password) {
+    public String postSignUp(@RequestParam String name, @RequestParam String email, @RequestParam String id, @RequestParam String password) {
         if(loginService.addUser(new UserDto(name, email, id, password, new Date(), new Date())))
-            return loginService.getUserInfo(id);
+            return "redirect:/";
         else
-            return null;
+            return "/login/sign-up";
     }
 }

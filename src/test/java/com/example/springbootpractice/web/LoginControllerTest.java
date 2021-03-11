@@ -10,6 +10,7 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -54,4 +55,22 @@ class LoginControllerTest {
 
         assert session.getAttribute("user") == null;
     }
+
+    @Test
+    void postSignIn() throws Exception {
+        String userId = "test02";
+        String userPwd = "test02";
+        String viewName = "redirect:/";
+
+        MockHttpSession session = new MockHttpSession();
+        mockMvc.perform(post("/signin").session(session).param("id", userId).param("password", userPwd))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name(viewName));
+
+        assert session.getAttribute("userId").equals(userId);
+    }
+
+//    @Test
+//    void postSignUp() {
+//    }
 }
