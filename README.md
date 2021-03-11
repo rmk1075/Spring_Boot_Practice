@@ -1,89 +1,50 @@
 #Spring_Boot_Practice
 
-2021.03.04
+1. 메인 페이지 ("/", "/blog")
 
-1. '/hello' 접근 시 hello.html 페이지 출력 및 test 코드 작성
+    - url 접속 시 "/blog/index" 페이지 연결 확인 ☑️
+    
+    - session 확인해서 login check ☑️
+    
+    - 로그인 상태별 화면 구조 변경 ⬛️
+    
+        - 로그인/로그아웃 버튼 ☑️
+    
+        - 사용자 정보 ⬛️
+    
+        - 글쓰기 버튼 ⬛️
+    
+    - 게시물 작성 버튼 (글쓰기) ⬛️
+    
+    - 게시물 조회 ⬛️
+    
+        - 메인화면 게시물 리스트 받아오기 ⬛️
+    
+        - 메인화면 게시물 리스트 출력 ⬛️
 
-   - HelloController.getHello(): "/hello" get request 시에 작동하는 메서드
+2. 로그인 페이지 ("/login")
 
-   - hello.html
+        - sign-in 화면 ☑️
 
-   - gradle dependencies: thymeleaf, web
+        - sign-up 화면 ☑️
 
-2. MySQL 연동하여 JPA로 데이터 접근
+3. 게시물 페이지 ("/post")
 
-   - application.properties 수정
+    - 게시물 리스트 조회 페이지 ⬛️
 
-      - SpringBoot는 기본적으노 h2 database를 제공한다.
+    - 게시물 페이지 ⬛️
 
-      - 다른 db를 사용할 경우, application.preperties에 connection 정보를 설정해야한다.
+    - 게시물 작성 ⬛️
 
-   - User: Entity (jpa에서 db 테이블과 대응하는 하나의 클래)
+    - 게시물 수정 ⬛️
+    
+    - 게시물 삭제 ⬛️
 
-   - UserRepository: CrudRepository를 상속받아서 자동으로 CRUD 기능이 사용가능하다.
+4. 기타
 
-   - gradle dependencies: jpa, mysql-connector
+    - JPA + MySQL 연동 ☑️
 
-3. '/blog' 접근 시 blog/index.html 페이지 출력
-
-   - BlogController.getBlog(): "/blog" get request 시에 작동하는 메서
-
-   - templates/blog/index.html: blog 페이지
-
-   - static/assets/*: bootstrap assets
-
-   - static/css/blog/blog.css
-
-2021.03.05
-
-1. sign-in 페이지
-
-   - LoginController.getSignIn(): "/signin" get request 시에 sign-in 페이지 출력
-
-   - templates/login/sign-in.html
-
-   - sign 로직
-
-      - blog sing up/in -> "/signin" get request
-
-      - signin 페이지 signin 클릭 -> findByUserId()로 user 정보 조회 후 비교
-
-2. sign-up 페이지
-
-   - LoginController.getSignUp(), postSignUp()
-
-   - LoginService, ServiceImpl. createUserInfo()
-
-   - @Autowired를 통해서 DI를 해주지 않으면 Null Pointer Exception 발생한다.ㅁ
-
-3. TODO
-
-   - login 기능 관련하여 프로젝트 정리
-
-      - UserController / LoginController
-
-      - 접근 url 관련 정리 - root, blog, login
-
-   - login 기능 로직 세부 구현
-
-      - 중복되는 ID 및 email 존재 여부 확인
-
-      - sign up / sign in 실패 시 로직 (알림창)
-
-      - login 이후 세션 관리
-
-2021.03.06
-
-1. 디렉토리 정리
-
-2. login 서비스 로직
-
-   - LoginController 주석
-
-2021.03.08
-
-1. url 정리
-
-2. TODO
-
-    - 로그인 세션 관리
+    - 시스템 로그 ⬛️
+    
+    - 구글 클라우드 올리기 ⬛️
+    

@@ -10,24 +10,22 @@ import java.util.Date;
 
 @Getter
 @Entity
-public class User {
+public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name;
-    private String email;
-    private String userId;
-    private String password;
+    private String title;
+    private Long authorId;
+    private String contents;
     private Date crtnDate;
     private Date chgDate;
 
-    protected User() {}
+    public Post() {}
 
-    public User(String name, String email, String userId, String password, Date crtnDate, Date chgDate) {
-        this.name = name;
-        this.email = email;
-        this.userId = userId;
-        this.password = password;
+    public Post(String title, Long authorId, String contents, Date crtnDate, Date chgDate) {
+        this.title = title;
+        this.authorId = authorId;
+        this.contents = contents;
         this.crtnDate = crtnDate;
         this.chgDate = chgDate;
     }
