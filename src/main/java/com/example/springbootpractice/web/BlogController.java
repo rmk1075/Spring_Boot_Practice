@@ -21,7 +21,14 @@ public class BlogController {
     }
 
     @GetMapping("/post")
-    public String getPost() {
+    public String getPost(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        // 사용자 정보가 없는 경우 - 로그인을 하지 않은 경우
+        if(session.getAttribute("userId") == null) {
+            return "redirect:/";
+        }
+
         return "blog/post";
     }
 

@@ -44,9 +44,18 @@ class BlogControllerTest {
 
     @Test
     void getPost() throws Exception {
-        String viewName = "blog/post";
+        String viewName = "redirect:/";
 
         mockMvc.perform(get("/post"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name(viewName));
+
+        // 로그인 사용자 정보 test02 계정 시용
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("userId", "test02");
+
+        viewName = "blog/post";
+        mockMvc.perform(get("/post").session(session))
                 .andExpect(status().isOk())
                 .andExpect(view().name(viewName));
     }
