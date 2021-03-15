@@ -190,6 +190,17 @@
         <p>Don't need apologies. Boy, you're an alien your touch so foreign, it's <em>supernatural</em>, extraterrestrial. Talk about our future like we had a clue. I can feel a phoenix inside of me.</p>
       </article><!-- /.blog-post -->
 
+      <!--   postList start  -->
+      <div th:each="post : ${postList}">
+        <article class="blog-post">
+          <h2 class="blog-post-title" th:text="${post[0]}"></h2>
+          <p class="blog-post-meta" th:text="${#dates.format(post[1], 'yyyy-MM-dd HH:mm')} + ' ' + ${post[2]}"></p>
+
+          <p th:text="${post[3]}"></p>
+        </article><!-- /.blog-post -->
+      </div>
+      <!--   postList end -->
+
       <nav class="blog-pagination" aria-label="Pagination">
         <a class="btn btn-outline-primary" href="#">Older</a>
         <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Newer</a>
