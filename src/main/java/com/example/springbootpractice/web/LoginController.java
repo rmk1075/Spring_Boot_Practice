@@ -1,7 +1,7 @@
 package com.example.springbootpractice.web;
 
 import com.example.springbootpractice.dto.UserDto;
-import com.example.springbootpractice.service.LoginService;
+import com.example.springbootpractice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +14,7 @@ import java.util.Date;
 @Controller
 public class LoginController {
     @Autowired
-    private LoginService loginService;
+    private UserService userService;
 
     @GetMapping("/signin")
     public String getSignIn() {
@@ -47,7 +47,7 @@ public class LoginController {
      */
     @PostMapping("/signin")
     public String postSignIn(@RequestParam String id, @RequestParam String password, HttpServletRequest request) {
-        UserDto userDto = loginService.getUserInfo(id);
+        UserDto userDto = userService.getUserInfo(id);
         if(userDto == null || !userDto.getPassword().equals(password)) {
             return "login/sign-in";
         }
@@ -73,7 +73,7 @@ public class LoginController {
      */
     @PostMapping("/signup")
     public String postSignUp(@RequestParam String name, @RequestParam String email, @RequestParam String id, @RequestParam String password) {
-        if(loginService.addUser(new UserDto(name, email, id, password, new Date(), new Date())))
+        if(userService.addUser(new UserDto(name, email, id, password, new Date(), new Date())))
             return "redirect:/";
         else
             return "/login/sign-up";

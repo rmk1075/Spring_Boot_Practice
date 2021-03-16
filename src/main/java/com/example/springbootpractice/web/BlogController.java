@@ -1,7 +1,7 @@
 package com.example.springbootpractice.web;
 
 import com.example.springbootpractice.dto.PostDto;
-import com.example.springbootpractice.service.LoginService;
+import com.example.springbootpractice.service.UserService;
 import com.example.springbootpractice.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ public class BlogController {
     PostService postService;
 
     @Autowired
-    LoginService loginService;
+    UserService userService;
 
     @GetMapping({"/", "/blog"})
     public String getBlog(Model model) {
@@ -31,7 +31,7 @@ public class BlogController {
         List<Object[]> list = new ArrayList<>();
         for(PostDto post : postList) {
             try {
-                Object[] obj = {post.getTitle(), post.getCrtnDate(), loginService.getUserInfo(post.getAuthorId()).getName(), post.getContents()};
+                Object[] obj = {post.getTitle(), post.getCrtnDate(), userService.getUserInfo(post.getAuthorId()).getName(), post.getContents()};
                 list.add(obj);
             } catch (Exception e) {
                 System.out.println("author Id: " + post.getAuthorId());
