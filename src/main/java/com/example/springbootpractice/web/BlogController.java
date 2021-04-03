@@ -25,7 +25,6 @@ public class BlogController {
     @GetMapping({"/", "/blog"})
     public String getBlog(Model model) {
         List<PostDto> postList = postService.getAllPost();
-//        model.addAttribute("postList", postList);
 
         // obj: {title, contents, crtnDate, userName}
         List<Object[]> list = new ArrayList<>();
@@ -40,6 +39,25 @@ public class BlogController {
         model.addAttribute("postList", list);
 
         return "blog/index";
+    }
+
+    @GetMapping("/postList")
+    public String getPostList(Model model) {
+        List<PostDto> postList = postService.getAllPost();
+
+        // obj: {title, contents, crtnDate, userName}
+        List<Object[]> list = new ArrayList<>();
+        for(PostDto post : postList) {
+            try {
+                Object[] obj = {post.getTitle(), post.getCrtnDate(), userService.getUserInfo(post.getAuthorId()).getName(), post.getContents()};
+                list.add(obj);
+            } catch (Exception e) {
+                System.out.println("author Id: " + post.getAuthorId());
+            }
+        }
+        model.addAttribute("postList", list);
+
+        return "blog/list";
     }
 
     @GetMapping("/post")
