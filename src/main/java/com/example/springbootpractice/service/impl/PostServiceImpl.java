@@ -7,14 +7,22 @@ import com.example.springbootpractice.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepository postRepository;
+
+    @Override
+    public PostDto getPostDetail(Long id) {
+        Optional<Post> post = postRepository.findById(id);
+        return post.map(PostDto::new).orElse(null);
+    }
 
     @Override
     public List<PostDto> getAllPost() {

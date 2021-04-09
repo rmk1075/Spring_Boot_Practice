@@ -89,21 +89,12 @@
 <main class="container">
     <div class="row">
         <div class="col-md-8">
-            <!--   postList start  -->
-            <div th:each="post : ${postList}">
-                <article class="blog-post">
-                    <a th:href="@{'/blog/post/' + ${post[4]}}"><h2 class="blog-post-title" th:text="${post[0]}"></h2></a>
-                    <p class="blog-post-meta" th:text="${#dates.format(post[1], 'yyyy-MM-dd HH:mm')} + ' ' + ${post[2]}"></p>
-                </article><!-- /.blog-post -->
-                <hr>
-            </div>
-            <!--   postList end -->
-
-            <nav class="blog-pagination" aria-label="Pagination">
-                <a class="btn btn-outline-primary" href="#">Older</a>
-                <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Newer</a>
-            </nav>
-
+            <article class="blog-post">
+                <h2 class="blog-post-title" th:text="${post.title}"></h2>
+                <p class="blog-post-meta" th:text="'글쓴이: ' + ${authorName}"></p>
+                <p class="blog-pos-meta" th:text="'작성일자: ' + ${#dates.format(post.crtnDate, 'yyyy-MM-dd HH:mm')}"></p>
+                <p class="blog-post" th:text="${post.contents}"></p>
+            </article><!-- /.blog-post -->
         </div>
 
     </div><!-- /.row -->

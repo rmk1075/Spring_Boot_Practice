@@ -49,7 +49,7 @@ public class BlogController {
         List<Object[]> list = new ArrayList<>();
         for(PostDto post : postList) {
             try {
-                Object[] obj = {post.getTitle(), post.getCrtnDate(), userService.getUserInfo(post.getAuthorId()).getName(), post.getContents()};
+                Object[] obj = {post.getTitle(), post.getCrtnDate(), userService.getUserInfo(post.getAuthorId()).getName(), post.getContents(), post.getId()};
                 list.add(obj);
             } catch (Exception e) {
                 System.out.println("author Id: " + post.getAuthorId());
@@ -70,6 +70,19 @@ public class BlogController {
         }
 
         return "blog/post";
+    }
+
+    @GetMapping("/blog/post/{index}")
+    public String getPostDetail(@PathVariable("index") Long index, Model model) {
+        PostDto postDto = postService.getPostDetail(index);
+        if(postDto == null)
+            return "blog/list";
+        model.addAttribute("post", postDto);
+
+        String authorName = userService.getUserInfo(postDto.getAuthorId()).getName();
+        model.addAttribute("authorName", authorName);
+
+        return "blog/detail";
     }
 
     @PostMapping("/addPost")
