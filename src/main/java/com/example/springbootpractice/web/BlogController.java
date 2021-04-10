@@ -72,11 +72,11 @@ public class BlogController {
         return "blog/post";
     }
 
-    @GetMapping("/blog/post/{index}")
+    @GetMapping("/post/{index}")
     public String getPostDetail(@PathVariable("index") Long index, Model model) {
         PostDto postDto = postService.getPostDetail(index);
         if(postDto == null)
-            return "blog/list";
+            return "redirect:/postList";
         model.addAttribute("post", postDto);
 
         String authorName = userService.getUserInfo(postDto.getAuthorId()).getName();
