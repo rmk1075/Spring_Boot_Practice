@@ -11,7 +11,7 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/blog/">
 
     <!-- Bootstrap core CSS -->
-    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/dist/css/bootstrap.min.css">
 
     <style>
         .bd-placeholder-img {
@@ -33,7 +33,7 @@
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="css/blog/blog.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/blog/blog.css">
 </head>
 <body>
 
@@ -92,7 +92,7 @@
             <article class="blog-post">
                 <h2 class="blog-post-title" th:text="${post.title}"></h2>
                 <p class="blog-post-meta" th:text="'글쓴이: ' + ${authorName}"></p>
-                <p class="blog-pos-meta" th:text="'작성일자: ' + ${#dates.format(post.crtnDate, 'yyyy-MM-dd HH:mm')}"></p>
+                <p class="blog-post-meta" th:text="'작성일자: ' + ${#dates.format(post.crtnDate, 'yyyy-MM-dd HH:mm')}"></p>
                 <p class="blog-post" th:text="${post.contents}"></p>
             </article><!-- /.blog-post -->
         </div>
