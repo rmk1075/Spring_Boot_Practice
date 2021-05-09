@@ -11,6 +11,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -80,6 +83,15 @@ class LoginControllerTest {
 
         // session 확인
         assert session.getAttribute("userId").equals(userId);
+
+        // 존재하지 않는 계정 로그인 테스트
+        session = new MockHttpSession();
+        userId = "fake Id";
+        userPwd = "fake Password";
+        viewName = "login/sign-in";
+        mockMvc.perform(post("/signin").session(session).param("id", userId).param("password", userPwd))
+                .andExpect(status().isOk())
+                .andExpect(view().name(viewName));
     }
 
     @Test
@@ -103,6 +115,12 @@ class LoginControllerTest {
         assert userInfo.getPassword().equals(user.get("password").get(0));
         assert userInfo.getName().equals(user.get("name").get(0));
         assert userInfo.getEmail().equals(user.get("email").get(0));
+
+        // 이미 등록된 회원 정보로 재가입 테스트
+        viewName = "/login/sign-up";
+        mockMvc.perform(post("/signup").params(user))
+                .andExpect(status().isOk())
+                .andExpect(view().name(viewName));
 
         // 회원정보 삭제
         userRepository.deleteById(userInfo.getId());

@@ -2,8 +2,10 @@ package com.example.springbootpractice.web;
 
 import com.example.springbootpractice.domain.Post;
 import com.example.springbootpractice.domain.User;
+import com.example.springbootpractice.dto.PostDto;
 import com.example.springbootpractice.repository.PostRepository;
 import com.example.springbootpractice.repository.UserRepository;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -13,6 +15,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import java.util.stream.Collectors;
+
+import static org.hamcrest.Matchers.hasProperty;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -94,5 +99,33 @@ class BlogControllerTest {
 
         // 게시물 삭제 확인
         assert postRepository.findById(post.getId()).isEmpty();
+    }
+
+    @Test
+    void getPostList() throws Exception {
+        String viewName = "blog/list";
+
+        mockMvc.perform(get("/postList"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(viewName));
+    }
+
+    @Test
+    void getPostDetail() throws Exception {
+        // post list 전체 게시물 대상으로 테스트
+        String viewName = "blog/detail";
+        for(PostDto post : postRepository.findAll().stream().map(PostDto::new).collect(Collectors.toList())) {
+            mockMvc.perform(get("/post/" + post.getId()))
+                    .andExpect(status().isOk())
+                    .andExpect(view().name(viewName))
+                    .andExpect(model().attribute("post", hasProperty("id", Matchers.equalTo(post.getId()))))
+                    .andExpect(model().attribute("authorName", userRepository.findById(post.getAuthorId()).get().getName()));
+        }
+
+        // 존재하지 않는 게시물 번호에 대한 테스트
+        viewName = "redirect:/postList";
+        mockMvc.perform(get("/post/-1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name(viewName));
     }
 }
